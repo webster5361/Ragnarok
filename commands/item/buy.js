@@ -64,8 +64,8 @@ module.exports = class BuyItemCommand extends Command {
 						? 's'
 						: ''} cost${plural
 							? ''
-							: 's'} ${amount * storeItem.price} 🍩s.
-				Your current account balance is ${balance} 🍩s.
+							: 's'} ${amount * storeItem.price} :gem:s.
+				Your current account balance is ${balance} :gem:s.
 			`);
 		}
 
@@ -77,7 +77,7 @@ module.exports = class BuyItemCommand extends Command {
 		return msg.reply(stripIndents`
 			you have successfully purchased ${amount} ${itemName}${plural
 				? 's'
-				: ''} for ${amount * storeItem.price} 🍩s.
+				: ''} for ${amount * storeItem.price} :gem:s.
 		`);
 	}
 };
