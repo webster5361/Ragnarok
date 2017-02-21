@@ -20,17 +20,17 @@ module.exports = class WidthdrawCommand extends Command {
 
 			args: [
 				{
-					key: 'donuts',
-					label: 'amount of donuts to withdraw',
+					key: 'gems',
+					label: 'amount of gems to withdraw',
 					prompt: `how many ${Currency.textPlural} do you want to withdraw?\n`,
-					validate: donuts => {
-						return /^(?:\d+|-all|-a)$/g.test(donuts);
+					validate: gems => {
+						return /^(?:\d+|-all|-a)$/g.test(gems);
 					},
-					parse: async (donuts, msg) => {
+					parse: async (gems, msg) => {
 						const balance = await Bank.getBalance(msg.author.id);
 
-						if (donuts === '-all' || donuts === '-a') return parseInt(balance);
-						return parseInt(donuts);
+						if (gems === '-all' || gems === '-a') return parseInt(balance);
+						return parseInt(gems);
 					}
 				}
 			]
@@ -38,13 +38,13 @@ module.exports = class WidthdrawCommand extends Command {
 	}
 
 	async run(msg, args) {
-		const donuts = args.donuts;
+		const gems = args.gems;
 
-		if (donuts <= 0) return msg.reply(`you can't widthdraw 0 or less ${Currency.convert(0)}.`);
+		if (gems <= 0) return msg.reply(`you can't widthdraw 0 or less ${Currency.convert(0)}.`);
 
 		const userBalance = await Bank.getBalance(msg.author.id);
 
-		if (userBalance < donuts) {
+		if (userBalance < gems) {
 			return msg.reply(stripIndents`
 				you do not have that many ${Currency.textPlural} in your balance!
 				Your current balance is ${Currency.convert(userBalance)}.
@@ -53,15 +53,15 @@ module.exports = class WidthdrawCommand extends Command {
 
 		const bankBalance = await Currency.getBalance('bank');
 
-		if (bankBalance < donuts) {
+		if (bankBalance < gems) {
 			return msg.reply(stripIndents`
 				sorry, but the bank doesn't have enough ${Currency.textPlural} for you to withdraw!
 				Please try again later.
 			`);
 		}
 
-		Bank.withdraw(msg.author.id, donuts);
+		Bank.withdraw(msg.author.id, gems);
 
-		return msg.reply(`successfully withdrew ${Currency.convert(donuts)} from the bank!`);
+		return msg.reply(`successfully withdrew ${Currency.convert(gems)} from the bank!`);
 	}
 };
