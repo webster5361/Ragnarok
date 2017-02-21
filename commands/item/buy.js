@@ -14,7 +14,7 @@ module.exports = class BuyItemCommand extends Command {
 			group: 'item',
 			memberName: 'buy',
 			description: 'Buys an item at the store.',
-			details: 'Let\'s you exchange your hard earned donuts for other goods.',
+			details: 'Let\'s you exchange your hard earned gems for other goods.',
 			throttling: {
 				usages: 2,
 				duration: 3
@@ -58,7 +58,7 @@ module.exports = class BuyItemCommand extends Command {
 
 		if (balance < storeItem.price * amount) {
 			return msg.reply(stripIndents`
-				you don't have enough donuts to buy ${amount} ${itemName}${plural
+				you don't have enough gems to buy ${amount} ${itemName}${plural
 					? 's'
 					: ''}. ${amount} ${itemName}${plural
 						? 's'
