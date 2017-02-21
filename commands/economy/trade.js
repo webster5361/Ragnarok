@@ -11,13 +11,13 @@ module.exports = class MoneyTradeCommand extends Command {
 				'trade-money',
 				'trade-donut',
 				'trade-gems',
-				'trade-doughnut',
-				'trade-doughnuts',
+				'trade-diamond',
+				'trade-diamonds',
 				'money-trade',
 				'donut-trade',
 				'gems-trade',
-				'doughnut-trade',
-				'doughnuts-trade'
+				'diamond-trade',
+				'diamonds-trade'
 			],
 			group: 'economy',
 			memberName: 'trade',

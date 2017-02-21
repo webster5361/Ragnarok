@@ -10,12 +10,12 @@ module.exports = class MoneyRemoveCommand extends Command {
 				'money-remove',
 				'remove-donut',
 				'remove-gems',
-				'remove-doughnut',
-				'remove-doughnuts',
+				'remove-diamond',
+				'remove-diamonds',
 				'donut-remove',
 				'gems-remove',
-				'doughnut-remove',
-				'doughnuts-remove'
+				'diamond-remove',
+				'diamonds-remove'
 			],
 			group: 'economy',
 			memberName: 'remove',

@@ -20,8 +20,8 @@ module.exports = class MoneyLeaderboardCommand extends Command {
 				'money-leaderboard',
 				'donut-leaderboard',
 				'gems-leaderboard',
-				'doughnut-leaderboard',
-				'doughnuts-leaderboard'
+				'diamond-leaderboard',
+				'diamonds-leaderboard'
 			],
 			group: 'economy',
 			memberName: 'leaderboard',

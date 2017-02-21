@@ -10,12 +10,12 @@ module.exports = class MoneyAddCommand extends Command {
 				'money-add',
 				'add-donut',
 				'add-gems',
-				'add-doughnut',
-				'add-doughnuts',
+				'add-diamond',
+				'add-diamonds',
 				'donut-add',
 				'gems-add',
-				'doughnut-add',
-				'doughnuts-add'
+				'diamond-add',
+				'diamonds-add'
 			],
 			group: 'economy',
 			memberName: 'add',
