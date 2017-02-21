@@ -24,7 +24,7 @@
   "dependencies": {
     "Sherlock": "neilgupta/Sherlock",
     "bluebird": "^3.4.7",
-    "canvas": "automattic/node-canvas",
+    "canvas": "github:automattic/node-canvas",
     "discord.js": "hydrabolt/discord.js#b21f8df1ec28cf5d1482a2b33894ce55397faa3c",
     "discord.js-commando": "gawdl3y/discord.js-commando",
     "erlpack": "hammerandchisel/erlpack",
