@@ -9,11 +9,11 @@ module.exports = class MoneyAddCommand extends Command {
 			aliases: [
 				'money-add',
 				'add-donut',
-				'add-donuts',
+				'add-gems',
 				'add-doughnut',
 				'add-doughnuts',
 				'donut-add',
-				'donuts-add',
+				'gems-add',
 				'doughnut-add',
 				'doughnuts-add'
 			],
@@ -34,8 +34,8 @@ module.exports = class MoneyAddCommand extends Command {
 					type: 'member'
 				},
 				{
-					key: 'donuts',
-					label: 'amount of donuts to add',
+					key: 'gems',
+					label: 'amount of gems to add',
 					prompt: `how many ${Currency.textPlural} do you want to give that user?\n`,
 					type: 'integer'
 				}
@@ -49,10 +49,10 @@ module.exports = class MoneyAddCommand extends Command {
 
 	async run(msg, args) {
 		const user = args.member;
-		const donuts = args.donuts;
+		const gems = args.gems;
 
-		Currency.addBalance(user.id, donuts);
+		Currency.addBalance(user.id, gems);
 
-		return msg.reply(`successfully added ${Currency.convert(donuts)} to ${user.displayName}'s balance.`);
+		return msg.reply(`successfully added ${Currency.convert(gems)} to ${user.displayName}'s balance.`);
 	}
 };
