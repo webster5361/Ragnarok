@@ -1,26 +1,26 @@
 {
-  "name": "commando",
-  "version": "0.15.2",
+  "name": "Ragnarok",
+  "version": "0.1.1",
   "description": ".",
   "license": "MIT",
-  "author": "Crawl",
+  "author": "Odinthewanderer",
   "scripts": {
-    "start": "node --harmony Commando.js",
+    "start": "node --harmony Ragnarok.js",
     "update": "npm update",
     "test": "eslint . silent"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/WeebDev/Commando.git"
+    "url": "git+https://github.com/Odinthewanderer/Ragnarok.git"
   },
   "bugs": {
-    "url": "https://github.com/WeebDev/Commando/issues"
+    "url": "https://github.com/Odinthewanderer/Ragnarok/issues"
   },
   "keywords": [
     "discord",
     "bot"
   ],
-  "homepage": "https://github.com/WeebDev/Commando#readme",
+  "homepage": "https://github.com/Odinthewanderer/Ragnarok/blob/master/README.md",
   "dependencies": {
     "Sherlock": "neilgupta/Sherlock",
     "bluebird": "^3.4.7",
