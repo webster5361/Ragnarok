@@ -1,6 +1,13 @@
 
 # Ragnarok
 
+<div align="center">
+	<p>
+		<a href="https://github.com/Odinthewanderer/Ragnarok"><img src="https://travis-ci.org/Odinthewanderer/Ragnarok.svg?branch=master" alt="Build status" /></a>
+	</p>
+</div>
+
+
 ## Installation guide for Ubuntu 16.04.2 LTS
 
 #### Make sure the node version is > 7.0.0
