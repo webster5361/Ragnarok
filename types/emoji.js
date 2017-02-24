@@ -11,8 +11,10 @@ class EmojiArgumentType extends ArgumentType {
 		if (value.match(regex)) {
 			const emoji = msg.client.emojis.get(value.match(regex)[2]);
 			if (emoji) return true;
+		} else
+		if (value.match(emojiRegex)) {
+			return true;
 		}
-		else if (value.match(emojiRegex)) return true;
 		return false;
 	}
 
@@ -20,8 +22,11 @@ class EmojiArgumentType extends ArgumentType {
 		if (value.match(regex)) {
 			const emoji = msg.client.emojis.get(value.match(regex)[2]);
 			if (emoji) return emoji;
+		} else
+		if (value.match(emojiRegex)) {
+			return value.match(emojiRegex)[0];
 		}
-		else if (value.match(emojiRegex)) return value.match(emojiRegex)[0];
+		return null;
 	}
 }
 

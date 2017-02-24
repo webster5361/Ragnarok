@@ -10,14 +10,14 @@ module.exports = class MoneyTradeCommand extends Command {
 			aliases: [
 				'trade-money',
 				'trade-donut',
-				'trade-donuts',
-				'trade-doughnut',
-				'trade-doughnuts',
+				'trade-gems',
+				'trade-diamond',
+				'trade-diamonds',
 				'money-trade',
 				'donut-trade',
-				'donuts-trade',
-				'doughnut-trade',
-				'doughnuts-trade'
+				'gems-trade',
+				'diamond-trade',
+				'diamonds-trade'
 			],
 			group: 'economy',
 			memberName: 'trade',
@@ -36,17 +36,17 @@ module.exports = class MoneyTradeCommand extends Command {
 					type: 'member'
 				},
 				{
-					key: 'donuts',
-					label: 'amount of donuts to trade',
+					key: 'gems',
+					label: 'amount of gems to trade',
 					prompt: `how many ${Currency.textPlural} do you want to give that user?\n`,
-					validate: donuts => {
-						return /^(?:\d+|-all)$/g.test(donuts);
+					validate: gems => {
+						return /^(?:\d+|-all)$/g.test(gems);
 					},
-					parse: async (donuts, msg) => {
+					parse: async (gems, msg) => {
 						const balance = await Currency.getBalance(msg.author.id);
 
-						if (donuts === '-all') return parseInt(balance);
-						return parseInt(donuts);
+						if (gems === '-all') return parseInt(balance);
+						return parseInt(gems);
 					}
 				}
 			]
@@ -55,24 +55,24 @@ module.exports = class MoneyTradeCommand extends Command {
 
 	async run(msg, args) {
 		const user = args.member;
-		const donuts = args.donuts;
+		const gems = args.gems;
 
 		if (user.id === msg.author.id) return msg.reply(`you can't trade ${Currency.textPlural} with yourself, ya dingus.`);
 		if (user.user.bot) return msg.reply(`don't give your ${Currency.textPlural} to bots: they're bots, man.`);
-		if (donuts <= 0) return msg.reply(`you can't trade 0 or less ${Currency.convert(0)}.`);
+		if (gems <= 0) return msg.reply(`you can't trade 0 or less ${Currency.convert(0)}.`);
 
 		const userBalance = await Currency.getBalance(msg.author.id);
 
-		if (userBalance < donuts) {
+		if (userBalance < gems) {
 			return msg.reply(stripIndents`
 				you don't have that many ${Currency.textPlural} to trade!
 				You currently have ${Currency.convert(userBalance)} on hand.
 			`);
 		}
 
-		Currency.removeBalance(msg.author.id, donuts);
-		Currency.addBalance(user.id, donuts);
+		Currency.removeBalance(msg.author.id, gems);
+		Currency.addBalance(user.id, gems);
 
-		return msg.reply(`${user.displayName} successfully received your ${Currency.convert(donuts)}!`);
+		return msg.reply(`${user.displayName} successfully received your ${Currency.convert(gems)}!`);
 	}
 };

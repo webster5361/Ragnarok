@@ -19,9 +19,9 @@ module.exports = class MoneyLeaderboardCommand extends Command {
 				'balancetop',
 				'money-leaderboard',
 				'donut-leaderboard',
-				'donuts-leaderboard',
-				'doughnut-leaderboard',
-				'doughnuts-leaderboard'
+				'gems-leaderboard',
+				'diamond-leaderboard',
+				'diamonds-leaderboard'
 			],
 			group: 'economy',
 			memberName: 'leaderboard',

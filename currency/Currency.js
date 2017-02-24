@@ -78,19 +78,19 @@ class Currency {
 	}
 
 	static get singular() {
-		return '🍩';
+		return ':gem:';
 	}
 
 	static get plural() {
-		return '🍩s';
+		return ':gem:s';
 	}
 
 	static get textSingular() {
-		return 'donut';
+		return 'gem';
 	}
 
 	static get textPlural() {
-		return 'donuts';
+		return 'gems';
 	}
 }
 

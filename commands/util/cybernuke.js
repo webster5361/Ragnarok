@@ -33,7 +33,6 @@ module.exports = class LaunchCybernukeCommand extends Command {
 	}
 
 	hasPermission(msg) {
-		//return this.client.isOwner(msg.author) || msg.member.hasPermission('ADMINISTRATOR');
 		return msg.member.roles.exists('name', 'Server Staff') || msg.member.hasPermission('ADMINISTRATOR');
 	}
 

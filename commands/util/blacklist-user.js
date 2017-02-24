@@ -25,8 +25,6 @@ module.exports = class BlacklistUserCommand extends Command {
 
 	hasPermission(msg) {
 		return msg.member.roles.exists('name', 'Server Staff');
-		//return this.client.isOwner(msg.author);
-		//return msg.member.roles.exists('Admin');
 	}
 
 	async run(msg, args) {

@@ -3,7 +3,7 @@
 	"owner": "YOUR_ID",
 	"exampleChannel": "example channel ID",
 	"db": "postgreSQL URL",
-	"ravenKey": "Sentry API Key",
+	"ravenKey": "Sentry DSN",
 	"WeatherAPIKey": "darksky.net API Key",
 	"GoogleAPIKey": "Google Geocode API Key",
 	"soundcloudID": "SoundCloud API Key",

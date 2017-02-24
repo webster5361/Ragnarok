@@ -24,7 +24,6 @@ module.exports = class WhitelistUserCommand extends Command {
 	}
 
 	hasPermission(msg) {
-		//return this.client.isOwner(msg.author);
 		return msg.member.roles.exists('name', 'Server Staff');
 	}
 

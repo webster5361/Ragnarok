@@ -22,15 +22,15 @@ module.exports = class RussianRouletteCommand extends Command {
 	}
 
 	async run(msg) {
-		const donuts = 120;
+		const gems = 120;
 		const balance = await Currency.getBalance(msg.author.id);
 		let roulette = RussianRoulette.findGame(msg.guild.id);
 
-		if (balance < donuts) {
+		if (balance < gems) {
 			return msg.reply(stripIndents`
 				you don't have enough ${Currency.textPlural}.
 				Your current account balance is ${Currency.convert(balance)}.
-				You need ${Currency.convert(donuts)} to join.
+				You need ${Currency.convert(gems)} to join.
 			`);
 		}
 
@@ -42,13 +42,13 @@ module.exports = class RussianRouletteCommand extends Command {
 				return msg.reply('only 6 people can join at a time. You\'ll have to wait for the next round');
 			}
 
-			roulette.join(msg.author, donuts);
+			roulette.join(msg.author, gems);
 
 			return msg.reply('you have successfully joined the game.');
 		}
 
 		roulette = new RussianRoulette(msg.guild.id);
-		roulette.join(msg.author, donuts);
+		roulette.join(msg.author, gems);
 
 		const barrel = this.generateBarrel();
 
@@ -78,8 +78,8 @@ module.exports = class RussianRouletteCommand extends Command {
 
 			survivors = players.filter(player => player !== deadPlayer);
 
-			Currency.removeBalance(deadPlayer.user.id, donuts);
-			survivors.forEach(survivor => Currency.addBalance(survivor.user.id, donuts / survivors.length));
+			Currency.removeBalance(deadPlayer.user.id, gems);
+			survivors.forEach(survivor => Currency.addBalance(survivor.user.id, gems / survivors.length));
 
 			return msg.embed({
 				description: stripIndents`
@@ -87,7 +87,7 @@ module.exports = class RussianRouletteCommand extends Command {
 					${survivors.map(survivor => survivor.user.username).join('\n')}
 
 					__**Reward**__
-					The survivors receive ${Currency.convert(donuts / survivors.length)} each.
+					The survivors receive ${Currency.convert(gems / survivors.length)} each.
 				`
 			});
 		});

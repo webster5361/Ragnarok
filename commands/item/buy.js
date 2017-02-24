@@ -14,7 +14,7 @@ module.exports = class BuyItemCommand extends Command {
 			group: 'item',
 			memberName: 'buy',
 			description: 'Buys an item at the store.',
-			details: 'Let\'s you exchange your hard earned donuts for other goods.',
+			details: 'Let\'s you exchange your hard earned gems for other goods.',
 			throttling: {
 				usages: 2,
 				duration: 3
@@ -58,14 +58,14 @@ module.exports = class BuyItemCommand extends Command {
 
 		if (balance < storeItem.price * amount) {
 			return msg.reply(stripIndents`
-				you don't have enough donuts to buy ${amount} ${itemName}${plural
+				you don't have enough gems to buy ${amount} ${itemName}${plural
 					? 's'
 					: ''}. ${amount} ${itemName}${plural
 						? 's'
 						: ''} cost${plural
 							? ''
-							: 's'} ${amount * storeItem.price} 🍩s.
-				Your current account balance is ${balance} 🍩s.
+							: 's'} ${amount * storeItem.price} :gem:s.
+				Your current account balance is ${balance} :gem:s.
 			`);
 		}
 
@@ -77,7 +77,7 @@ module.exports = class BuyItemCommand extends Command {
 		return msg.reply(stripIndents`
 			you have successfully purchased ${amount} ${itemName}${plural
 				? 's'
-				: ''} for ${amount * storeItem.price} 🍩s.
+				: ''} for ${amount * storeItem.price} :gem:s.
 		`);
 	}
 };
