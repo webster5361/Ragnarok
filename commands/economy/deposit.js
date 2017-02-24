@@ -20,17 +20,17 @@ module.exports = class DepositCommand extends Command {
 
 			args: [
 				{
-					key: 'gems',
-					label: 'amount of gems to deposit',
+					key: 'currency',
+					label: `amount of ${Currency.textPlural} to deposit`,
 					prompt: `how many ${Currency.textPlural} do you want to deposit?\n`,
-					validate: gems => {
-						return /^(?:\d+|-all|-a)$/g.test(gems);
+					validate: currency => {
+						return /^(?:\d+|-all|-a)$/g.test(currency);
 					},
-					parse: async (gems, msg) => {
+					parse: async (currency, msg) => {
 						const balance = await Currency.getBalance(msg.author.id);
 
-						if (gems === '-all' || gems === '-a') return parseInt(balance);
-						return parseInt(gems);
+						if (currency === '-all' || currency === '-a') return parseInt(balance);
+						return parseInt(currency);
 					}
 				}
 			]
@@ -38,21 +38,21 @@ module.exports = class DepositCommand extends Command {
 	}
 
 	async run(msg, args) {
-		const gems = args.gems;
+		const currency = args.currency;
 
-		if (gems <= 0) return msg.reply(`you can't deposit 0 or less ${Currency.convert(0)}.`);
+		if (currency <= 0) return msg.reply(`you can't deposit 0 or less ${Currency.convert(0)}.`);
 
 		const userBalance = await Currency.getBalance(msg.author.id);
 
-		if (userBalance < gems) {
+		if (userBalance < currency) {
 			return msg.reply(stripIndents`
 				you don't have that many ${Currency.textPlural} to deposit!
 				You currently have ${Currency.convert(userBalance)} on hand.
 			`);
 		}
 
-		Bank.deposit(msg.author.id, gems);
+		Bank.deposit(msg.author.id, currency);
 
-		return msg.reply(`successfully deposited ${Currency.convert(gems)} to the bank!`);
+		return msg.reply(`successfully deposited ${Currency.convert(currency)} to the bank!`);
 	}
 };

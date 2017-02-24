@@ -1,6 +1,7 @@
 {
 	"logsChannel": "mod-logs",
-	"currencySingular": "gem",
-	"currencyPlural": "gems",
-	"currencyIcon": ":gem:"
+	"currencyTextSingular": "skull",
+	"currencyTextPlural": "skulls",
+	"currencyIconSingular": ":skull:",
+	"currencyIconPlural": ":skull:s"
 }

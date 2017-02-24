@@ -1,5 +1,4 @@
 const { Command } = require('discord.js-commando');
-
 const Currency = require('../../currency/Currency');
 
 module.exports = class MoneyAddCommand extends Command {
@@ -8,14 +7,10 @@ module.exports = class MoneyAddCommand extends Command {
 			name: 'add-money',
 			aliases: [
 				'money-add',
-				'add-donut',
-				'add-gems',
-				'add-diamond',
-				'add-diamonds',
-				'donut-add',
-				'gems-add',
-				'diamond-add',
-				'diamonds-add'
+				`add-${Currency.textSingular}`,
+				`add-${Currency.textPlural}`,
+				`${Currency.textSingular}-add`,
+				`${Currency.textPlural}-add`
 			],
 			group: 'economy',
 			memberName: 'add',
@@ -34,8 +29,8 @@ module.exports = class MoneyAddCommand extends Command {
 					type: 'member'
 				},
 				{
-					key: 'gems',
-					label: 'amount of gems to add',
+					key: 'currency',
+					label: `amount of ${Currency.textPlural} to add`,
 					prompt: `how many ${Currency.textPlural} do you want to give that user?\n`,
 					type: 'integer'
 				}
@@ -49,10 +44,10 @@ module.exports = class MoneyAddCommand extends Command {
 
 	async run(msg, args) {
 		const user = args.member;
-		const gems = args.gems;
+		const currency = args.currency;
 
-		Currency.addBalance(user.id, gems);
+		Currency.addBalance(user.id, currency);
 
-		return msg.reply(`successfully added ${Currency.convert(gems)} to ${user.displayName}'s balance.`);
+		return msg.reply(`successfully added ${Currency.convert(currency)} to ${user.displayName}'s balance.`);
 	}
 };

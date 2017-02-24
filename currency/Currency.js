@@ -1,5 +1,6 @@
 const Redis = require('../redis/Redis');
 const UserProfile = require('../postgreSQL/models/UserProfile');
+const Config = require('../config.json');
 
 const redis = new Redis();
 
@@ -78,19 +79,19 @@ class Currency {
 	}
 
 	static get singular() {
-		return ':gem:';
+		return Config.currencyIconSingular;
 	}
 
 	static get plural() {
-		return ':gem:s';
+		return Config.currencyIconPlural;
 	}
 
 	static get textSingular() {
-		return 'gem';
+		return Config.currencyTextSingular;
 	}
 
 	static get textPlural() {
-		return 'gems';
+		return Config.currencyTextPlural;
 	}
 }
 

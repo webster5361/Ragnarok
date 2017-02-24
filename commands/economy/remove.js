@@ -8,14 +8,10 @@ module.exports = class MoneyRemoveCommand extends Command {
 			name: 'remove-money',
 			aliases: [
 				'money-remove',
-				'remove-donut',
-				'remove-gems',
-				'remove-diamond',
-				'remove-diamonds',
-				'donut-remove',
-				'gems-remove',
-				'diamond-remove',
-				'diamonds-remove'
+				`${Currency.textSingular}-remove`,
+				`${Currency.textPlural}-remove`,
+				`remove-${Currency.textSingular}`,
+				`remove-${Currency.textPlural}`
 			],
 			group: 'economy',
 			memberName: 'remove',
@@ -34,8 +30,8 @@ module.exports = class MoneyRemoveCommand extends Command {
 					type: 'member'
 				},
 				{
-					key: 'gems',
-					label: 'amount of gems to remove',
+					key: 'currency',
+					label: `amount of ${Currency.textPlural} to remove`,
 					prompt: `how many ${Currency.textPlural} do you want to remove from that user?\n`,
 					type: 'integer'
 				}
@@ -49,10 +45,10 @@ module.exports = class MoneyRemoveCommand extends Command {
 
 	async run(msg, args) {
 		const user = args.member;
-		const gems = args.gems;
+		const currency = args.currency;
 
-		Currency.removeBalance(user.id, gems);
+		Currency.removeBalance(user.id, currency);
 
-		return msg.reply(`successfully removed ${Currency.convert(gems)} from ${user.displayName}'s balance.`);
+		return msg.reply(`successfully removed ${Currency.convert(currency)} from ${user.displayName}'s balance.`);
 	}
 };
