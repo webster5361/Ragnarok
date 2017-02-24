@@ -16,25 +16,6 @@
 	</table>
 </div>
 
-<div>
-	<p>
-		DEV BUILD
-		<br/>
-		<a href="https://github.com/Odinthewanderer/Ragnarok"><img src="https://travis-ci.org/Odinthewanderer/Ragnarok.svg?branch=dev" alt="Build status" /></a>
-	</p>
-	<p>
-		MASTER BUILD
-		<br/>
-		<a href="https://github.com/Odinthewanderer/Ragnarok"><img src="https://travis-ci.org/Odinthewanderer/Ragnarok.svg?branch=master" alt="Build status" /></a>
-	</p>
-	<p>
-		LICENSE
-		<br/>
-		<a href="https://github.com/Odinthewanderer/Ragnarok/blob/master/LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License" /></a>
-	</p>
-</div>
-
-
 ## Installation guide for Ubuntu 16.04.2 LTS
 
 #### Make sure the node version is > 7.0.0
