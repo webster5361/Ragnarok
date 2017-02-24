@@ -12,6 +12,11 @@
 		<br/>
 		<a href="https://github.com/Odinthewanderer/Ragnarok"><img src="https://travis-ci.org/Odinthewanderer/Ragnarok.svg?branch=master" alt="Build status" /></a>
 	</p>
+	<p>
+		LICENSE
+		<br/>
+		<a href="https://github.com/Odinthewanderer/Ragnarok/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License" /></a>
+	</p>
 </div>
 
 
