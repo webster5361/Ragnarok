@@ -1,3 +1,6 @@
 {
-	"logsChannel": "mod-logs"
+	"logsChannel": "mod-logs",
+	"currencySingular": "gem",
+	"currencyPlural": "gems",
+	"currencyIcon": ":gem:"
 }
