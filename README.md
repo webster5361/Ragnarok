@@ -21,11 +21,11 @@
 
 ## Installation guide for Ubuntu 16.04.2 LTS
 
-#### Make sure the node version is > 7.0.0
+#### Make sure the node version is > 7.6.0
 
 ```bash
 node -v
-> 7.5.0
+> 7.6.0
 ```
 
 #### Install PostgresSQL
