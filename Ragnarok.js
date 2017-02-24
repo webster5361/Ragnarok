@@ -140,7 +140,8 @@ client.registry
 		['item', 'Item'],
 		['weather', 'Weather'],
 		['music', 'Music'],
-		['tags', 'Tags']
+		['tags', 'Tags'],
+		['moderator', 'Moderator']
 	])
 	.registerDefaults()
 	.registerTypesIn(path.join(__dirname, 'types'))
