@@ -78,7 +78,7 @@ After you clone the settings, edit them with your connection information. You'll
 
 
 #### Launch Ragnarok
-If there is a sequelize error, re-run the start command.
+If there is a sequelize error, re-run the start command. The initial "X doesn't exist is normal."
 ```
 node --harmony Commando.js
 ```
