@@ -7,12 +7,14 @@
 			<td>DEV BUILD</td>
 			<td>MASTER BUILD</td>
 			<td>LICENSE</td>
+			<td>DEPENDENCIES</td>
 		</tr>
 		<tr>
 			<td>
 				<a href="https://github.com/Odinthewanderer/Ragnarok"><img src="https://travis-ci.org/Odinthewanderer/Ragnarok.svg?branch=dev" alt="Build status" /></a></td>
 				<td><a href="https://github.com/Odinthewanderer/Ragnarok"><img src="https://travis-ci.org/Odinthewanderer/Ragnarok.svg?branch=master" alt="Build status" /></a></td>
 				<td><a href="https://github.com/Odinthewanderer/Ragnarok/blob/master/LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License" /></a></td>
+				<td>https://david-dm.org/Odinthewanderer/Ragnarok.svg</td>
 		</tr>
 	</table>
 </div>

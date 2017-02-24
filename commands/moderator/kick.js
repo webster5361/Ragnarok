@@ -5,10 +5,10 @@ const modLog = require('../../config.json');
 module.exports = class WarnCommand extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'warn',
+			name: 'kick',
 			group: 'moderator',
-			memberName: 'warn',
-			description: 'Warns a specified user for a specific reason.',
+			memberName: 'kick',
+			description: 'Kicks a specified user for a specific reason.',
 			throttling: {
 				usages: 2,
 				duration: 3
@@ -17,7 +17,7 @@ module.exports = class WarnCommand extends Command {
 			args: [
 				{
 					key: 'member',
-					prompt: 'what user would you like to warn?\n',
+					prompt: 'what user would you like to kick?\n',
 					type: 'member'
 				},
 
@@ -39,18 +39,27 @@ module.exports = class WarnCommand extends Command {
 		});
 	}
 
+	hasPermission(msg) {
+		return this.client.isOwner(msg.author);
+	}
+
 	async run(msg, args) {
 		let user = args.member;
 		let reason = args.reason;
 		let modLogs = this.client.channels.find('name', modLog.logsChannel);
 		if (!modLogs) return msg.reply('I cannot find mod-logs');
+
+		user.sendMessage(`You have been kicked from **${msg.guild.name}** for '${reason}'`);
+		user.kick();
+		msg.reply(`${user.user.username}#${user.user.discriminator} was successfully kicked from the server.`);
+
 		const embed = new Discord.RichEmbed()
-			.setTitle('WARNED')
+			.setTitle('KICKED')
 			.setAuthor(`${msg.author.username}#${msg.author.discriminator} (${msg.author.id})`, msg.author.avatarURL)
 			.setThumbnail(msg.author.avatarURL)
-			.setColor('#fed039')
+			.setColor('#fe6d39')
 			.setTimestamp()
-			.addField('**User Warned**:', `${user.user.username}#${user.user.discriminator} (${user.id})`)
+			.addField('**User Kicked**:', `${user.user.username}#${user.user.discriminator} (${user.id})`)
 			.addField('**Reason**:', reason);
 		return modLogs.sendEmbed(embed);
 	}
