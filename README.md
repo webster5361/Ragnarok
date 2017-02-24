@@ -1,9 +1,9 @@
 
 # Ragnarok
 
-<div align="center">
+<div>
 	<p>
-		<a href="https://github.com/Odinthewanderer/Ragnarok"><img src="https://travis-ci.org/Odinthewanderer/Ragnarok.svg?branch=master" alt="Build status" /></a>
+		<a href="https://github.com/Odinthewanderer/Ragnarok"><img src="https://travis-ci.org/Odinthewanderer/Ragnarok.svg?branch=dev" alt="Build status" /></a>
 	</p>
 </div>
 
