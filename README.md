@@ -3,7 +3,12 @@
 
 <div>
 	<p>
+		DEV BUILD
 		<a href="https://github.com/Odinthewanderer/Ragnarok"><img src="https://travis-ci.org/Odinthewanderer/Ragnarok.svg?branch=dev" alt="Build status" /></a>
+	</p>
+	<p>
+		MASTER BUILD
+		<a href="https://github.com/Odinthewanderer/Ragnarok"><img src="https://travis-ci.org/Odinthewanderer/Ragnarok.svg?branch=master" alt="Build status" /></a>
 	</p>
 </div>
 
