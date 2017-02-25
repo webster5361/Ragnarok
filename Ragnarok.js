@@ -58,6 +58,7 @@ client.on('error', winston.error)
 			${Object.values(args)[0] !== '' ? `>>> ${Object.values(args)}` : ''}
 		`);
 	})
+
 	.on('message', async (message) => {
 		if (message.channel.type === 'dm') return;
 

@@ -24,13 +24,13 @@ class Roulette {
 		games.set(this.guildID, this);
 	}
 
-	join(user, donuts, space) {
+	join(user, currency, space) {
 		const multiplier = this.winSpaces.includes(space)
 			? spaces.find(spc => spc.values.includes(space)).multiplier
 			: 0;
 		this.players.push({
 			user: user,
-			winnings: donuts * multiplier
+			winnings: currency * multiplier
 		});
 
 		games.set(this.guildID, this);
