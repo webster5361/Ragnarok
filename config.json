@@ -3,5 +3,6 @@
 	"currencyTextSingular": "skull",
 	"currencyTextPlural": "skulls",
 	"currencyIconSingular": ":skull:",
-	"currencyIconPlural": ":skull:s"
+	"currencyIconPlural": ":skull:s",
+	"muteRole": "muted"
 }

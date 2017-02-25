@@ -2,13 +2,13 @@ const { Command } = require('discord.js-commando');
 const Discord = require('discord.js');
 const modLog = require('../../config.json');
 
-module.exports = class KickCommand extends Command {
+module.exports = class BanCommand extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'kick',
+			name: 'ban',
 			group: 'moderator',
-			memberName: 'kick',
-			description: 'Kicks a specified user for a specific reason.',
+			memberName: 'ban',
+			description: 'Bans a specified user for a specific reason.',
 			throttling: {
 				usages: 2,
 				duration: 3
@@ -17,13 +17,13 @@ module.exports = class KickCommand extends Command {
 			args: [
 				{
 					key: 'member',
-					prompt: 'what user would you like to kick?\n',
+					prompt: 'what user would you like to ban?\n',
 					type: 'member'
 				},
 
 				{
 					key: 'reason',
-					prompt: 'why do you want to kick this user?\n',
+					prompt: 'why do you want to ban this user?\n',
 					type: 'string',
 					validate: value => {
 						if (value.length > 130) {
@@ -49,16 +49,16 @@ module.exports = class KickCommand extends Command {
 		let modLogs = this.client.channels.find('name', modLog.logsChannel);
 		if (!modLogs) return msg.reply('I cannot find mod-logs');
 
-		user.sendMessage(`You have been kicked from **${msg.guild.name}** for '${reason}'`);
-		user.kick();
+		user.sendMessage(`You have been banned from **${msg.guild.name}** for '${reason}'`);
+		user.ban();
 
 		const embed = new Discord.RichEmbed()
-			.setTitle('KICKED')
+			.setTitle('BANNED')
 			.setAuthor(`${msg.author.username}#${msg.author.discriminator} (${msg.author.id})`, msg.author.avatarURL)
 			.setThumbnail(msg.author.avatarURL)
-			.setColor('#fe6d39')
+			.setColor('#ff0000')
 			.setTimestamp()
-			.addField('**User Kicked**:', `${user.user.username}#${user.user.discriminator} (${user.id})`)
+			.addField('**User Banned**:', `${user.user.username}#${user.user.discriminator} (${user.id})`)
 			.addField('**Guild**:', `${msg.guild.name} (${msg.guild.id})`)
 			.addField('**Reason**:', reason);
 		user.sendEmbed(embed);

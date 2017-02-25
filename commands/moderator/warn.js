@@ -44,6 +44,7 @@ module.exports = class WarnCommand extends Command {
 		let reason = args.reason;
 		let modLogs = this.client.channels.find('name', modLog.logsChannel);
 		if (!modLogs) return msg.reply('I cannot find mod-logs');
+
 		const embed = new Discord.RichEmbed()
 			.setTitle('WARNED')
 			.setAuthor(`${msg.author.username}#${msg.author.discriminator} (${msg.author.id})`, msg.author.avatarURL)
@@ -51,7 +52,9 @@ module.exports = class WarnCommand extends Command {
 			.setColor('#fed039')
 			.setTimestamp()
 			.addField('**User Warned**:', `${user.user.username}#${user.user.discriminator} (${user.id})`)
+			.addField('**Guild**:', `${msg.guild.name} (${msg.guild.id})`)
 			.addField('**Reason**:', reason);
+		user.sendEmbed(embed);
 		return modLogs.sendEmbed(embed);
 	}
 };
