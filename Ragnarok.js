@@ -7,6 +7,7 @@ const { oneLine } = require('common-tags');
 const path = require('path');
 const Raven = require('raven');
 const winston = require('winston');
+const log = require('./functions/log.js');
 
 const Database = require('./postgreSQL/PostgreSQL');
 const Redis = require('./redis/Redis');
@@ -35,28 +36,32 @@ client.setProvider(new SequelizeProvider(database.db));
 
 client.dispatcher.addInhibitor(msg => {
 	const blacklist = client.provider.get('global', 'userBlacklist', []);
-
 	if (!blacklist.includes(msg.author.id)) return false;
-
 	return `User ${msg.author.username}#${msg.author.discriminator} (${msg.author.id}) has been blacklisted.`;
 });
 
 client.on('error', winston.error)
 	.on('warn', winston.warn)
 	.on('ready', () => {
-		winston.info(oneLine`
-			Client ready... Logged in as ${client.user.username}#${client.user.discriminator} (${client.user.id})
-		`);
+		const logger = oneLine`Client ready... Logged in as ${client.user.username}#${client.user.discriminator} (${client.user.id})`;
+		winston.info(log(logger, 'log'));
 		Currency.leaderboard();
 	})
-	.on('disconnect', () => { winston.warn('Disconnected!'); })
-	.on('reconnect', () => { winston.warn('Reconnecting...'); })
+	.on('disconnect', () => { winston.warn(log('Disconnected!', 'error')); })
+	.on('reconnect', () => { winston.warn(log('Reconnecting...', 'warn')); })
 	.on('commandRun', (cmd, promise, msg, args) => {
-		winston.info(oneLine`${msg.author.username}#${msg.author.discriminator} (${msg.author.id})
+		const logger = oneLine`${msg.author.username}#${msg.author.discriminator} (${msg.author.id})
 			> ${msg.guild ? `${msg.guild.name} (${msg.guild.id})` : 'DM'}
 			>> ${cmd.groupID}:${cmd.memberName}
-			${Object.values(args)[0] !== '' ? `>>> ${Object.values(args)}` : ''}
-		`);
+			${Object.values(args)[0] !== '' ? `>>> ${Object.values(args)}` : ''}`;
+		winston.info(log(logger, 'log'));
+	})
+
+	.on('guildMemberAdd', (member) => {
+		let guild = member.guild;
+		guild.defaultChannel.sendMessage(`Please welcome ${member.user} to the server!`);
+		const logger = `GUILD MEMBER ADD: ${member.user.username}#${member.user.discriminator} (${member.id}) has joined the guild ${guild.name} (${guild.id})`;
+		winston.info(log(logger, 'log'));
 	})
 
 	.on('message', async (message) => {
@@ -101,35 +106,41 @@ client.on('error', winston.error)
 			}, 60 * 1000);
 		}
 	})
+
 	.on('commandError', (cmd, err) => {
 		if (err instanceof commando.FriendlyError) return;
-		winston.error(`Error in command ${cmd.groupID}:${cmd.memberName}`, err);
+		const logger = (`Error in command ${cmd.groupID}:${cmd.memberName}`, err);
+		winston.error(log(logger, 'error'));
 	})
+
 	.on('commandBlocked', (msg, reason) => {
-		winston.info(oneLine`
+		const logger = oneLine`
 			Command ${msg.command ? `${msg.command.groupID}:${msg.command.memberName}` : ''}
-			blocked; User ${msg.author.username}#${msg.author.discriminator} (${msg.author.id}): ${reason}
-		`);
+			blocked; User ${msg.author.username}#${msg.author.discriminator} (${msg.author.id}): ${reason}`;
+		winston.info(log(logger, 'log'));
 	})
+
 	.on('commandPrefixChange', (guild, prefix) => {
-		winston.info(oneLine`
+		const logger = oneLine`
 			Prefix changed to ${prefix || 'the default'}
-			${guild ? `in guild ${guild.name} (${guild.id})` : 'globally'}.
-		`);
+			${guild ? `in guild ${guild.name} (${guild.id})` : 'globally'}.`;
+		winston.info(log(logger, 'log'));
 	})
+
 	.on('commandStatusChange', (guild, command, enabled) => {
-		winston.info(oneLine`
+		const logger = oneLine`
 			Command ${command.groupID}:${command.memberName}
 			${enabled ? 'enabled' : 'disabled'}
-			${guild ? `in guild ${guild.name} (${guild.id})` : 'globally'}.
-		`);
+			${guild ? `in guild ${guild.name} (${guild.id})` : 'globally'}.`;
+		winston.info(log(logger, 'log'));
 	})
+
 	.on('groupStatusChange', (guild, group, enabled) => {
-		winston.info(oneLine`
+		const logger = oneLine`
 			Group ${group.id}
 			${enabled ? 'enabled' : 'disabled'}
-			${guild ? `in guild ${guild.name} (${guild.id})` : 'globally'}.
-		`);
+			${guild ? `in guild ${guild.name} (${guild.id})` : 'globally'}.`;
+		winston.info(log(logger, 'log'));
 	});
 
 client.registry
