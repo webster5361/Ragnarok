@@ -57,11 +57,28 @@ client.on('error', winston.error)
 		winston.info(log(logger, 'log'));
 	})
 
+	.on('channelCreate', (channel) => {
+		const logger = `CHANNEL CREATE: ${channel.name} (${channel.id}) was created.`;
+		winston.info(log(logger, 'log'));
+	})
+
+	.on('channelDelete', (channel) => {
+		const logger = `CHANNEL DELETE: ${channel.name} (${channel.id}) was deleted.`;
+		winston.info(log(logger, 'log'));
+	})
+
 	.on('guildMemberAdd', (member) => {
 		let guild = member.guild;
 		guild.defaultChannel.sendMessage(`Please welcome ${member.user} to the server!`);
 		const logger = `GUILD MEMBER ADD: ${member.user.username}#${member.user.discriminator} (${member.id}) has joined the guild ${guild.name} (${guild.id})`;
-		winston.info(log(logger, 'log'));
+		winston.info(log(logger, 'success'));
+	})
+
+	.on('guildMemberRemove', (member) => {
+		let guild = member.guild;
+		guild.defaultChannel.sendMessage(`Please say goodbye to ${member.user.username}!`);
+		const logger = `GUILD MEMBER REMOVE: ${member.user.username}#${member.user.discriminator} (${member.id}) has left the guild ${guild.name} (${guild.id})`;
+		winston.info(log(logger, 'warn'));
 	})
 
 	.on('message', async (message) => {

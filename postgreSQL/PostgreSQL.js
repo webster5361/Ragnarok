@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const winston = require('winston');
-
+const log = require('../functions/log.js');
 const db = require('../settings').db;
 
 class Database {
@@ -14,8 +14,14 @@ class Database {
 
 	start() {
 		this.database.authenticate()
-			.then(() => { winston.info('Connection has been established successfully.'); })
-			.catch(err => { winston.error(`Unable to connect to the database: ${err}`); });
+			.then(() => {
+				const logger = 'Connection has been established successfully.';
+				winston.info(log(logger, 'log'));
+			})
+			.catch(err => {
+				const logger = `Unable to connect to the database: ${err}`;
+				winston.error(log(logger, 'log'));
+			});
 	}
 }
 
