@@ -138,6 +138,7 @@ client.on('error', winston.error)
 				.setTimestamp()
 				.setDescription(``)
 				.addField('**Message Author**:', message.author)
+				.addField('**Guild**:', message.guild.name)
 				.addField('**Message Content**:', message.content);
 			modLogs.sendEmbed(embed);
 			const logger = `MESSAGE DELETE: A message written by ${authorName} (${authorID}) in the guild ${guildName} (${guildID}): ${message.content}`;
@@ -150,8 +151,9 @@ client.on('error', winston.error)
 	})
 
 	.on('messageDeleteBulk', (messages) => {
+		const guild = messages.first().guild;
 		const numMessages = messages.size;
-		const logger = `BULK DELETE: ${numMessages} have been deleted.`;
+		const logger = `BULK DELETE: ${numMessages} messages have been deleted from ${guild.name} (${guild.id})`;
 		winston.info(log(logger, 'warn'));
 	})
 
