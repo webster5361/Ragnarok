@@ -13,7 +13,6 @@ const Database = require('./postgreSQL/PostgreSQL');
 const Redis = require('./redis/Redis');
 const SequelizeProvider = require('./postgreSQL/SequelizeProvider');
 const config = require('./settings');
-
 const database = new Database();
 const redis = new Redis();
 const client = new commando.Client({
@@ -67,7 +66,7 @@ client.on('error', winston.error)
 				.setTitle('CHANNEL CREATED')
 				.setAuthor(`${guild.name} (${guild.id})`, guild.iconURL)
 				.setThumbnail(guild.iconURL)
-				.setColor('#49ff00')
+				.setColor(Configuration.modLogOk)
 				.setTimestamp()
 				.setDescription(`A new ${channel.type} channel was created: ${channel.name}.`);
 			modLogs.sendEmbed(embed);
@@ -89,7 +88,7 @@ client.on('error', winston.error)
 				.setTitle('CHANNEL DELETED')
 				.setAuthor(`${guild.name} (${guild.id})`, guild.iconURL)
 				.setThumbnail(guild.iconURL)
-				.setColor('#ff0000')
+				.setColor(Configuration.modLogError)
 				.setTimestamp()
 				.setDescription(`A ${channel.type} channel was deleted: ${channel.name}.`);
 			modLogs.sendEmbed(embed);
@@ -113,6 +112,46 @@ client.on('error', winston.error)
 		let guild = member.guild;
 		guild.defaultChannel.sendMessage(`Please say goodbye to ${member.user.username}!`);
 		const logger = `GUILD MEMBER REMOVE: ${member.user.username}#${member.user.discriminator} (${member.id}) has left the guild ${guild.name} (${guild.id})`;
+		winston.info(log(logger, 'warn'));
+	})
+
+	.on('channelPinsUpdate', (channel, time) => {
+		const guild = channel.guild;
+		const logger = `CHANNEL PINS UPDATE: Channel pins updated in ${channel.name} for guild ${guild.name} at ${time}`;
+		winston.info(log(logger, 'log'));
+	})
+
+	.on('messageDelete', (message) => {
+		const guild = message.guild;
+		const guildName = message.guild.name;
+		const guildID = message.guild.id;
+		const authorName = `${message.author.username}#${message.author.discriminator}`;
+		const authorID = message.author.id;
+		const modLogs = client.channels.find('name', modLogsName);
+		if (!modLogs) return 'I can\'t find the mod-logs channel.';
+		try {
+			const embed = new Discord.RichEmbed()
+				.setTitle('MESSAGE DELETED')
+				.setAuthor(`${guildName} (${guildID})`, guild.iconURL)
+				.setThumbnail(guild.iconURL)
+				.setColor(Configuration.modLogError)
+				.setTimestamp()
+				.setDescription(``)
+				.addField('**Message Author**:', message.author)
+				.addField('**Message Content**:', message.content);
+			modLogs.sendEmbed(embed);
+			const logger = `MESSAGE DELETE: A message written by ${authorName} (${authorID}) in the guild ${guildName} (${guildID}): ${message.content}`;
+			winston.info(log(logger, 'warn'));
+		} catch (err) {
+			const logger = `MESSAGE DELETE ERROR: ${err}`;
+			winston.error(log(logger, 'error'));
+		}
+		return null;
+	})
+
+	.on('messageDeleteBulk', (messages) => {
+		const numMessages = messages.size;
+		const logger = `BULK DELETE: ${numMessages} have been deleted.`;
 		winston.info(log(logger, 'warn'));
 	})
 

@@ -12,11 +12,14 @@ let ModLog = database.db.define('modlog', {
 		type: Sequelize.STRING,
 		allowNull: true
 	},
+	guildName: Sequelize.STRING,
 	guildID: Sequelize.STRING,
+	offenderName: Sequelize.STRING,
 	offenderID: Sequelize.STRING,
+	adminName: Sequelize.STRING,
 	adminID: Sequelize.STRING
 });
 
-ModLog.sync();
+ModLog.sync({ force: true });
 
 module.exports = ModLog;

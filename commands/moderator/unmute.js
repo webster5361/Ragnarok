@@ -56,7 +56,7 @@ module.exports = class UnmuteCommand extends Command {
 			.setTitle('UNMUTED')
 			.setAuthor(`${msg.author.username}#${msg.author.discriminator} (${msg.author.id})`, msg.author.avatarURL)
 			.setThumbnail(msg.author.avatarURL)
-			.setColor('#49ff00')
+			.setColor(Config.modLogOk)
 			.setTimestamp()
 			.addField('**User Unmuted**:', `${user.user.username}#${user.user.discriminator} (${user.id})`)
 			.addField('**Guild**:', `${msg.guild.name} (${msg.guild.id})`)

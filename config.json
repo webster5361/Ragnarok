@@ -4,5 +4,11 @@
 	"currencyTextPlural": "gems",
 	"currencyIconSingular": ":gem:",
 	"currencyIconPlural": ":gem:s",
-	"muteRole": "muted"
+	"muteRole": "muted",
+	"modLogError": "#ff0000",
+	"modLogWarn": "#fed039",
+	"modLogSev": "#fe6d39",
+	"modLogSys": "#f8f8f8",
+	"modLogInfo": "#59596a",
+	"modLogOk": "#49ff00"
 }

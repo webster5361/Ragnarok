@@ -56,7 +56,7 @@ module.exports = class MuteCommand extends Command {
 			.setTitle('MUTED')
 			.setAuthor(`${msg.author.username}#${msg.author.discriminator} (${msg.author.id})`, msg.author.avatarURL)
 			.setThumbnail(msg.author.avatarURL)
-			.setColor('#fed039')
+			.setColor(Config.modLogWarn)
 			.setTimestamp()
 			.addField('**User Muted**:', `${user.user.username}#${user.user.discriminator} (${user.id})`)
 			.addField('**Guild**:', `${msg.guild.name} (${msg.guild.id})`)
