@@ -1,5 +1,5 @@
 global.Promise = require('bluebird');
-
+const Discord = require('discord.js');
 const commando = require('discord.js-commando');
 const Currency = require('./currency/Currency');
 const Experience = require('./currency/Experience');
@@ -8,7 +8,7 @@ const path = require('path');
 const Raven = require('raven');
 const winston = require('winston');
 const log = require('./functions/log.js');
-
+const Configuration = require('./config.json');
 const Database = require('./postgreSQL/PostgreSQL');
 const Redis = require('./redis/Redis');
 const SequelizeProvider = require('./postgreSQL/SequelizeProvider');
@@ -18,13 +18,14 @@ const database = new Database();
 const redis = new Redis();
 const client = new commando.Client({
 	owner: config.owner,
-	commandPrefix: '?',
+	commandPrefix: config.commandPrefix,
 	unknownCommandResponse: false,
 	disableEveryone: true
 });
 
 let earnedRecently = [];
 let gainedXPRecently = [];
+let modLogsName = Configuration.logsChannel;
 
 Raven.config(config.ravenKey);
 Raven.install();
@@ -58,13 +59,47 @@ client.on('error', winston.error)
 	})
 
 	.on('channelCreate', (channel) => {
-		const logger = `CHANNEL CREATE: ${channel.name} (${channel.id}) was created.`;
-		winston.info(log(logger, 'log'));
+		const guild = channel.guild;
+		const modLogs = client.channels.find('name', modLogsName);
+		if (!modLogs) return 'I can\'t find the mod-logs channel.';
+		try {
+			const embed = new Discord.RichEmbed()
+				.setTitle('CHANNEL CREATED')
+				.setAuthor(`${guild.name} (${guild.id})`, guild.iconURL)
+				.setThumbnail(guild.iconURL)
+				.setColor('#49ff00')
+				.setTimestamp()
+				.setDescription(`A new ${channel.type} channel was created: ${channel.name}.`);
+			modLogs.sendEmbed(embed);
+			const logger = `CHANNEL CREATE: ${channel.name} (${channel.id}) was created.`;
+			winston.info(log(logger, 'log'));
+		} catch (err) {
+			const logger = `CHANNEL CREATE ERROR: ${err}`;
+			winston.error(log(logger, 'error'));
+		}
+		return null;
 	})
 
 	.on('channelDelete', (channel) => {
-		const logger = `CHANNEL DELETE: ${channel.name} (${channel.id}) was deleted.`;
-		winston.info(log(logger, 'log'));
+		const guild = channel.guild;
+		const modLogs = client.channels.find('name', modLogsName);
+		if (!modLogs) return 'I can\'t find the mod-logs channel.';
+		try {
+			const embed = new Discord.RichEmbed()
+				.setTitle('CHANNEL DELETED')
+				.setAuthor(`${guild.name} (${guild.id})`, guild.iconURL)
+				.setThumbnail(guild.iconURL)
+				.setColor('#ff0000')
+				.setTimestamp()
+				.setDescription(`A ${channel.type} channel was deleted: ${channel.name}.`);
+			modLogs.sendEmbed(embed);
+			const logger = `CHANNEL DELETE: ${channel.name} (${channel.id}) was deleted.`;
+			winston.info(log(logger, 'log'));
+		} catch (err) {
+			const logger = `CHANNEL DELETE ERROR: ${err}`;
+			winston.error(log(logger, 'error'));
+		}
+		return null;
 	})
 
 	.on('guildMemberAdd', (member) => {
