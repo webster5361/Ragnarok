@@ -1,4 +1,7 @@
 {
+	"staffRole": "Server Staff",
+	"adminRole": "Administrator",
+	"modRole": "Moderator",
 	"logsChannel": "mod-logs",
 	"currencyTextSingular": "gem",
 	"currencyTextPlural": "gems",
